@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookFinder.Server", "BookFinder.Server\BookFinder.Server.csproj", "{1FD22A55-3561-4A36-88C3-081AF8B470FF}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "bookfinder.client", "bookfinder.client\bookfinder.client.esproj", "{C9E80588-2A86-441B-AAAC-186B91AEF9B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FD22A55-3561-4A36-88C3-081AF8B470FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FD22A55-3561-4A36-88C3-081AF8B470FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FD22A55-3561-4A36-88C3-081AF8B470FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FD22A55-3561-4A36-88C3-081AF8B470FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9E80588-2A86-441B-AAAC-186B91AEF9B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9E80588-2A86-441B-AAAC-186B91AEF9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9E80588-2A86-441B-AAAC-186B91AEF9B9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C9E80588-2A86-441B-AAAC-186B91AEF9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9E80588-2A86-441B-AAAC-186B91AEF9B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9E80588-2A86-441B-AAAC-186B91AEF9B9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C361E8E2-D309-4E89-AB3C-DBD9021C61BD}
+	EndGlobalSection
+EndGlobal

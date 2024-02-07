@@ -1,0 +1,6 @@
+@BookFinder.Server_HostAddress = http://localhost:5193
+
+GET {{BookFinder.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
