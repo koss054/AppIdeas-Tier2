@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/BookFinderApp/BookFinder.Server/appsettings.json
