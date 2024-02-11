@@ -1,3 +1,5 @@
+using BookFinder.Server.Contracts;
+using BookFinder.Server.Services;
 using BookFinder.Server.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,7 @@ builder.Services.AddCors(options =>
                    .AllowAnyMethod();
         });
 });
+builder.Services.AddScoped<IBookService, BookService>();
 
 builder.Configuration.GetSection("GoogleBooksApi").Get<GoogleBookApiSettings>();
 

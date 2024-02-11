@@ -1,4 +1,6 @@
-﻿using BookFinder.Server.Models;
+﻿using BookFinder.Server.Consts;
+using BookFinder.Server.Contracts;
+using BookFinder.Server.Models;
 using BookFinder.Server.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -14,6 +16,7 @@ namespace BookFinder.Server.Controllers
         // The API key value is in appsettings.json - a file that has been added to .gitignore.
         private readonly GoogleBookApiSettings _googleBooksApi;
         private readonly HttpClient _httpClient;
+        private readonly IBookService _bookService;
 
         // TODO: Read about the details below in multiple places. It's good to confirm the validity of what you've read ;)
 
@@ -25,10 +28,14 @@ namespace BookFinder.Server.Controllers
         // It reuses and manages a pool of HttpClient instances.
         // It allows us to configure and customize HttpClient instances (important when using external APIs).
         // Supports named clients, allowing us to easily switch between HttpClient instances with different settings
-        public BooksController(IOptions<GoogleBookApiSettings> googleBooksApi, IHttpClientFactory httpClientFactory)
+        public BooksController(
+            IOptions<GoogleBookApiSettings> googleBooksApi, 
+            IHttpClientFactory httpClientFactory,
+            IBookService bookService)
         {
             _googleBooksApi = googleBooksApi.Value;
             _httpClient = httpClientFactory.CreateClient();
+            _bookService = bookService;
         }
 
         [HttpGet("{volumeId}")]
@@ -36,20 +43,16 @@ namespace BookFinder.Server.Controllers
         {
             try
             {
-                string apiKey = _googleBooksApi.ApiKey;
-                string apiUrl = $"https://www.googleapis.com/books/v1/volumes/{volumeId}?key={apiKey}";
+                var apiKey = _googleBooksApi.ApiKey;
+                var response = await _bookService.GetByIdAsync(_httpClient, apiKey, volumeId);
 
-                HttpResponseMessage response = await _httpClient.GetAsync(apiUrl);
-
-                if (response.IsSuccessStatusCode)
+                if (response.IsSuccessful)
                 {
-                    var bookDetails = await response.Content.ReadFromJsonAsync<BookDetails>();
-                    return Ok(bookDetails);
+                    return Ok(response.Entity);
                 }
                 else
                 {
-                    var errorDetails = await response.Content.ReadFromJsonAsync<ErrorResponse>();
-                    return StatusCode((int)response.StatusCode, errorDetails);
+                    return StatusCode(response.ErrorCode, response.Error);
                 }
             }
             catch (Exception ex)
