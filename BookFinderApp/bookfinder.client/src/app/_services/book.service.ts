@@ -14,4 +14,9 @@ export class BookService {
     const url = `${this.apiUrl}/${volumeId}`;
     return this.http.get(url);
   }
+
+  getBooks(queryValue: string): Observable<any> {
+    const url = `${this.apiUrl}/search/${queryValue.trim()}`;
+    return this.http.get(url);
+  }
 }

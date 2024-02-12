@@ -1,4 +1,4 @@
-﻿namespace BookFinder.Server.Models
+﻿namespace BookFinder.Server.Models.Books
 {
     public class BookDetails
     {

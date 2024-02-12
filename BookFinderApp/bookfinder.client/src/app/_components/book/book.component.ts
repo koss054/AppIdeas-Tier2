@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { BookService } from '../../_services/book.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { BookService } from '../../_services/book.service';
 })
 
 export class BookComponent {
+  @ViewChild('searchQuery', { static: false }) searchQuery: ElementRef | undefined;
   volumeId: string = 'buc0AAAAMAAJ';
 
   constructor(private bookService: BookService) { }
@@ -20,6 +21,16 @@ export class BookComponent {
         },
         (error) => {
           console.error('Error:', error);
+        }
+      );
+    const searchQueryValue = this.searchQuery?.nativeElement.value;
+    this.bookService.getBooks(searchQueryValue)
+      .subscribe(
+        (data) => {
+          console.log("Book query result: ", data);
+        },
+        (error) => {
+          console.error('Error: ', error);
         }
       );
   }

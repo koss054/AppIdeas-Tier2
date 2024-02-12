@@ -1,8 +1,9 @@
 ﻿using BookFinder.Server.Consts;
 using BookFinder.Server.Contracts;
 using BookFinder.Server.Models;
+using BookFinder.Server.Models.Books;
 using BookFinder.Server.Models.Responses;
-using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BookFinder.Server.Services
 {
@@ -25,12 +26,13 @@ namespace BookFinder.Server.Services
             }
         }
 
-        public async Task<IActionResult> GetByQueryAsync(HttpClient httpClient, string apiKey, string queryValue)
+        public async Task<SingleResponse<BookList>> GetByQueryAsync(HttpClient httpClient, string apiKey, string queryValue)
         {
             var apiUrl = $"{BookServiceConsts.GoogleBooksApiUrl}volumes?q={queryValue}";
-            var response = await httpClient.GetAsync(apiUrl);
+            var response = await httpClient.GetStringAsync(apiUrl);
+            var bookDetails = JsonConvert.DeserializeObject<BookList>(response);
 
-            throw new NotImplementedException();
+            return new SingleResponse<BookList>(bookDetails);
         }
     }
 }

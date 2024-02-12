@@ -60,5 +60,28 @@ namespace BookFinder.Server.Controllers
                 return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
             }
         }
+
+        [HttpGet("search/{queryValue}")]
+        public async Task<IActionResult> GetBooks(string queryValue)
+        {
+            try
+            {
+                var apiKey = _googleBooksApi.ApiKey;
+                var response = await _bookService.GetByQueryAsync(_httpClient, apiKey, queryValue);
+
+                if (response.IsSuccessful)
+                {
+                    return Ok(response.Entity);
+                }
+                else
+                {
+                    return StatusCode(response.ErrorCode, response.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error", Error = ex.Message });
+            }
+        }
     }
 }
