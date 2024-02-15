@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BookList } from '../_models/book-list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,6 @@ export class BookService {
 
   getBooks(queryValue: string): Observable<any> {
     const url = `${this.apiUrl}/search/${queryValue.trim()}`;
-    return this.http.get(url);
+    return this.http.get<BookList[]>(url);
   }
 }

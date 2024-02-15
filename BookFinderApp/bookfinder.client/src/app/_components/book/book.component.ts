@@ -1,5 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { BookService } from '../../_services/book.service';
+import { BookList } from '../../_models/book-list.model';
+import { BookDetails } from '../../_models/book-details.model';
 
 @Component({
   selector: 'app-book',
@@ -10,24 +12,23 @@ import { BookService } from '../../_services/book.service';
 export class BookComponent {
   @ViewChild('searchQuery', { static: false }) searchQuery: ElementRef | undefined;
   volumeId: string = 'buc0AAAAMAAJ';
+  bookList: BookList = {
+    kind: '',
+    totalItems: 0,
+    items: []
+  }
+  bookDetailsArray: BookDetails[] = [];
 
   constructor(private bookService: BookService) { }
 
   onButtonClick(): void {
-    this.bookService.getBookDetails(this.volumeId)
-      .subscribe(
-        (data) => {
-          console.log('Book details:', data);
-        },
-        (error) => {
-          console.error('Error:', error);
-        }
-      );
     const searchQueryValue = this.searchQuery?.nativeElement.value;
     this.bookService.getBooks(searchQueryValue)
       .subscribe(
         (data) => {
-          console.log("Book query result: ", data);
+          this.bookList = data;
+          this.bookDetailsArray = this.bookList.items;
+          console.log("Book query result: ", this.bookDetailsArray);
         },
         (error) => {
           console.error('Error: ', error);

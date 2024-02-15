@@ -8,8 +8,7 @@ namespace BookFinder.Server.Models
         public string? Subtitle { get; set; }
         public List<string> Authors { get; set; } = [];
         public string? Publisher { get; set; }
-        //TODO: Fix date time error in ts file for GetBookDetails.
-        public DateTime PublishedDate { get; set; }
+        public string? PublishedDate { get; set; }
         public string? Description { get; set; }
         public int PageCount { get; set; }
         public List<string> Categories { get; set; } = [];

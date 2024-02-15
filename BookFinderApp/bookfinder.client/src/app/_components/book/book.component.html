@@ -1,4 +1,14 @@
-<p>Get example book details. Click below and check dev console.</p>
-<button (click)="onButtonClick()">Get details</button>
+<div class="main-container">
+  <p>Get example book details. Click below and check dev console.</p>
+  <button (click)="onButtonClick()">Get details</button>
 
-<input type="text" #searchQuery />
+  <input type="text" #searchQuery />
+
+  <div id="book-list" >
+    <div class="book-details" *ngFor="let book of bookDetailsArray">
+      <h2>{{ book.volumeInfo.title }}</h2>
+      <p>ID: {{ book.id }}</p>
+      <img [src]="book.volumeInfo.imageLinks.smallThumbnail" />
+    </div>
+  </div>
+</div>
